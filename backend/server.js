@@ -13,13 +13,13 @@ import { connectDB } from "./config/db.js";
 import { protectRoute } from "./middleware/protectRoute.js";
 
 const app = express();
-const PORT = ENV_VARS.PORT || 5000;
+const PORT = ENV_VARS.PORT || 3000;
 const __dirname = path.resolve();
 
 // Middleware
 app.use(
     cors({
-        origin: "https://your-frontend-domain.vercel.app", // Replace with your frontend URL
+        origin: "https://localhost:5173", // Replace with your frontend URL
         credentials: true, // Allow cookies to be sent across domains
     })
 );
