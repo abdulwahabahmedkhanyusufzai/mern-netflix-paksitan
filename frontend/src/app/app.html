@@ -1,0 +1,10 @@
+<div *ngIf="authService.isCheckingAuth(); else content" class="h-screen">
+  <div class="flex justify-center items-center bg-black h-full">
+    <lucide-icon [img]="Loader" class="animate-spin text-red-600 size-10"></lucide-icon>
+  </div>
+</div>
+
+<ng-template #content>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+</ng-template>

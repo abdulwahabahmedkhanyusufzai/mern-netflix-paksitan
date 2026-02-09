@@ -1,0 +1,5 @@
+@if (authService.user()) {
+<app-home-screen></app-home-screen>
+} @else {
+<app-auth-screen></app-auth-screen>
+}

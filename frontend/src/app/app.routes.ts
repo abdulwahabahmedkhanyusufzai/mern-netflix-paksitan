@@ -1,37 +1,19 @@
 import { Routes } from '@angular/router';
+import { HomePageComponent } from './pages/home/home-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { SignUpPageComponent } from './pages/signup-page/signup-page.component';
+import { WatchPageComponent } from './pages/watch-page/watch-page.component';
+import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { SearchHistoryPageComponent } from './pages/search-history-page/search-history-page.component';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { canActivateAuth, canActivatePublic } from './auth.guard';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
-  },
-  {
-    path: 'login',
-    title: 'CognitiveStream | Login',
-    loadComponent: () => import('./features/auth/login/login.component')
-      .then(m => m.LoginComponent)
-  },
-  {
-    path: 'dashboard',
-    title: 'CognitiveStream | Enterprise Dashboard',
-    loadComponent: () => import('./features/dashboard/dashboard.component')
-      .then(m => m.DashboardComponent)
-  },
-  {
-    path: 'watch/:id',
-    title: 'CognitiveStream | Player',
-    loadComponent: () => import('./features/video/player/player.component')
-      .then(m => m.PlayerComponent)
-  },
-  {
-    path: 'upload',
-    title: 'CognitiveStream | Ingestion',
-    loadComponent: () => import('./features/video/upload/upload.component')
-      .then(m => m.UploadComponent)
-  },
-  {
-    path: '**', // 404 Wildcard
-    redirectTo: 'dashboard'
-  }
+    { path: '', component: HomePageComponent },
+    { path: 'login', component: LoginPageComponent, canActivate: [canActivatePublic] },
+    { path: 'signup', component: SignUpPageComponent, canActivate: [canActivatePublic] },
+    { path: 'watch/:id', component: WatchPageComponent, canActivate: [canActivateAuth] },
+    { path: 'search', component: SearchPageComponent, canActivate: [canActivateAuth] },
+    { path: 'history', component: SearchHistoryPageComponent, canActivate: [canActivateAuth] },
+    { path: '**', component: NotFoundPageComponent }
 ];

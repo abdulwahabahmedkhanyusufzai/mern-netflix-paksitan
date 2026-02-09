@@ -1,0 +1,50 @@
+<div class="bg-black min-h-screen text-white">
+    <app-navbar></app-navbar>
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex justify-center gap-3 mb-4">
+            <button class="py-2 px-4 rounded hover:bg-red-700" [class.bg-red-600]="activeTab() === 'movie'"
+                [class.bg-gray-800]="activeTab() !== 'movie'" (click)="handleTabClick('movie')">
+                Movies
+            </button>
+            <button class="py-2 px-4 rounded hover:bg-red-700" [class.bg-red-600]="activeTab() === 'tv'"
+                [class.bg-gray-800]="activeTab() !== 'tv'" (click)="handleTabClick('tv')">
+                TV Shows
+            </button>
+            <button class="py-2 px-4 rounded hover:bg-red-700" [class.bg-red-600]="activeTab() === 'person'"
+                [class.bg-gray-800]="activeTab() !== 'person'" (click)="handleTabClick('person')">
+                Person
+            </button>
+        </div>
+
+        <form class="flex gap-2 items-stretch mb-8 max-w-2xl mx-auto" (submit)="handleSearch($event)">
+            <input type="text" [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" name="search"
+                placeholder="Search for a {{ activeTab() }}" class="w-full p-2 rounded bg-gray-800 text-white" />
+            <button class="bg-red-600 hover:bg-red-700 text-white p-2 rounded">
+                <lucide-icon name="search" class="size-6"></lucide-icon>
+            </button>
+        </form>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            @for (result of results(); track result.id) {
+            @if (result.poster_path || result.profile_path) {
+            <div class="bg-gray-800 p-4 rounded">
+                @if (activeTab() === 'person') {
+                <div class="flex flex-col items-center">
+                    <img [src]="ORIGINAL_IMG_BASE_URL + result.profile_path" [alt]="result.name"
+                        class="max-h-96 rounded mx-auto" />
+                    <h2 class="mt-2 text-xl font-bold">{{ result.name }}</h2>
+                </div>
+                } @else {
+                <a [routerLink]="['/watch', result.id]"
+                    (click)="contentService.setContentType(activeTab() === 'movie' ? 'movie' : 'tv')">
+                    <img [src]="ORIGINAL_IMG_BASE_URL + result.poster_path" [alt]="result.title || result.name"
+                        class="w-full h-auto rounded" />
+                    <h2 class="mt-2 text-xl font-bold">{{ result.title || result.name }}</h2>
+                </a>
+                }
+            </div>
+            }
+            }
+        </div>
+    </div>
+</div>
