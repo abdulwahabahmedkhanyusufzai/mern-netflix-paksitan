@@ -1,17 +1,18 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { MovieSliderComponent } from '../../components/movie-slider/movie-slider.component';
-import { ContentService } from '../../services/content.service';
-import { LucideAngularModule, Play, Info } from 'lucide-angular';
-import { MOVIE_CATEGORIES, TV_CATEGORIES, ORIGINAL_IMG_BASE_URL } from '../../constants';
+import { NavbarComponent } from '../../../components/navbar/navbar.component';
+import { MovieSliderComponent } from '../../../components/movie-slider/movie-slider.component';
+import { ContentService } from '../../../services/content.service';
+import { LucideAngularModule, Play, Info, LUCIDE_ICONS, LucideIconProvider } from 'lucide-angular';
+import { MOVIE_CATEGORIES, TV_CATEGORIES, ORIGINAL_IMG_BASE_URL } from '../../../constants';
 
 @Component({
     selector: 'app-home-screen',
     standalone: true,
     imports: [CommonModule, RouterLink, NavbarComponent, MovieSliderComponent, LucideAngularModule],
+    providers: [{ provide: LUCIDE_ICONS, useValue: new LucideIconProvider({ Play, Info }) }],
     templateUrl: './home-screen.component.html'
 })
 export class HomeScreenComponent implements OnInit {

@@ -1,0 +1,19 @@
+
+> frontend-angular@0.0.0 build
+> ng build
+
+Node.js version v25.3.0 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/previous-releases/.
+[33m❯[39m Building...
+[32m✔[39m Building...
+[1mInitial chunk files[22m  [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mmain-75U4FRQ3.js[39m     [2m | [22m[2mmain[22m         [2m | [22m[36m422.67 kB[39m[2m | [22m              [36m107.47 kB[39m
+[32mpolyfills-FFHMD2TL.js[39m[2m | [22m[2mpolyfills[22m    [2m | [22m [36m34.52 kB[39m[2m | [22m               [36m11.28 kB[39m
+[32mstyles-XPE4VQYV.css[39m  [2m | [22m[2mstyles[22m       [2m | [22m [36m22.59 kB[39m[2m | [22m                [36m4.64 kB[39m
+
+[1m [22m                    [2m | [22m[1mInitial total[22m[2m | [22m[1m479.78 kB[22m[2m | [22m              [1m123.39 kB[22m
+
+Application bundle generation complete. [8.907 seconds]
+
+Output location: C:\Users\ADMIN\mern-netflix-paksitan\frontend\dist\frontend-angular
+

@@ -1,14 +1,15 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { LucideAngularModule, LogOut, Menu, Search } from 'lucide-angular';
+import { LucideAngularModule, LogOut, Menu, Search, LUCIDE_ICONS, LucideIconProvider } from 'lucide-angular';
 import { AuthService } from '../../services/auth.service';
 import { ContentService } from '../../services/content.service';
 
 @Component({
     selector: 'app-navbar',
     standalone: true,
-    imports: [CommonModule, RouterLink, LucideAngularModule.pick({ Search, LogOut, Menu })],
+    imports: [CommonModule, RouterLink, LucideAngularModule],
+    providers: [{ provide: LUCIDE_ICONS, useValue: new LucideIconProvider({ Search, LogOut, Menu }) }],
     templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
