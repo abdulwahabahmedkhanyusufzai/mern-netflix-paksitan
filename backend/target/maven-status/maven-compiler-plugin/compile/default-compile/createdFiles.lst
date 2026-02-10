@@ -1,5 +1,7 @@
 com\netflix\backend\dto\AuthResponse$AuthResponseBuilder.class
 com\netflix\backend\dto\ApiResponse.class
+com\netflix\backend\model\SearchHistory$SearchHistoryBuilder.class
+com\netflix\backend\model\SearchHistory.class
 com\netflix\backend\controller\AuthController.class
 com\netflix\backend\config\SecurityConfig.class
 com\netflix\backend\service\AuthService.class
@@ -10,9 +12,9 @@ com\netflix\backend\repository\UserRepository.class
 com\netflix\backend\config\ApplicationConfig.class
 com\netflix\backend\config\JwtRequestFilter.class
 com\netflix\backend\dto\AuthResponse.class
+com\netflix\backend\model\User$UserBuilder.class
 com\netflix\backend\dto\AuthRequest.class
 com\netflix\backend\model\User.class
-com\netflix\backend\model\User$SearchHistoryItem.class
 com\netflix\backend\util\JwtUtil.class
 com\netflix\backend\controller\TvController.class
 com\netflix\backend\service\TmdbService.class

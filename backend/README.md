@@ -5,17 +5,20 @@ This is the Java Spring Boot version of the Netflix Clone backend.
 ## Prerequisites
 
 -   Java 17 or higher
+-   Java 17 or higher
 -   Maven
--   MongoDB account/connection string
+-   PostgreSQL
 -   TMDB API Key
 
 ## Configuration
 
-Update `src/main/resources/application.properties` with your credentials:
+Update `src/main/resources/application.properties` with your credentials or set environment variables:
 
 ```properties
-# MongoDB Connection String
-spring.data.mongodb.uri=YOUR_MONGODB_URI
+# PostgreSQL Connection
+spring.datasource.url=${DB_URL:jdbc:postgresql://localhost:5432/netflix_db}
+spring.datasource.username=${DB_USERNAME:postgres}
+spring.datasource.password=${DB_PASSWORD:postgres}
 
 # TMDB API Key (v4 Auth Token or v3 API Key, depending on usage)
 tmdb.api.key=YOUR_TMDB_API_KEY

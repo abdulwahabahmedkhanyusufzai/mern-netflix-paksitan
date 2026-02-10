@@ -1,6 +1,7 @@
 package com.netflix.backend.controller;
 
 import com.netflix.backend.model.User;
+import com.netflix.backend.model.SearchHistory;
 import com.netflix.backend.repository.UserRepository;
 import com.netflix.backend.service.TmdbService;
 import lombok.RequiredArgsConstructor;
@@ -58,7 +59,7 @@ public class SearchController {
     }
 
     @DeleteMapping("/history/{id}")
-    public ResponseEntity<Map<String, Object>> removeFromHistory(@PathVariable String id,
+    public ResponseEntity<Map<String, Object>> removeFromHistory(@PathVariable Long id,
             @AuthenticationPrincipal UserDetails userDetails) {
         try {
             User user = userRepository.findByUsername(userDetails.getUsername()).orElse(null);
@@ -66,11 +67,15 @@ public class SearchController {
                 return ResponseEntity.status(404).body(Map.of("success", false, "message", "User not found"));
             }
 
-            List<User.SearchHistoryItem> history = user.getSearchHistory();
-            history.removeIf(item -> item.getId().equals(id));
+            List<SearchHistory> history = user.getSearchHistory();
+            boolean removed = history.removeIf(item -> item.getId().equals(id));
 
-            userRepository.save(user);
-            return ResponseEntity.ok(Map.of("success", true, "message", "Item removed from search history"));
+            if (removed) {
+                userRepository.save(user);
+                return ResponseEntity.ok(Map.of("success", true, "message", "Item removed from search history"));
+            } else {
+                return ResponseEntity.status(404).body(Map.of("success", false, "message", "Item not found"));
+            }
 
         } catch (Exception e) {
             return ResponseEntity.internalServerError()
@@ -92,10 +97,10 @@ public class SearchController {
 
                 User user = userRepository.findByUsername(username).orElse(null);
                 if (user != null) {
-                    User.SearchHistoryItem item = new User.SearchHistoryItem();
-                    item.setId(String.valueOf(firstResult.get("id")));
+                    SearchHistory item = new SearchHistory();
+                    item.setContentId(String.valueOf(firstResult.get("id")));
                     item.setSearchType(type);
-                    item.setCreatedAt(Instant.now().toString());
+                    item.setCreatedAt(java.time.LocalDateTime.now());
 
                     if (type.equals("person")) {
                         item.setTitle((String) firstResult.get("name"));
@@ -108,7 +113,8 @@ public class SearchController {
                         item.setImage((String) firstResult.get("poster_path"));
                     }
 
-                    List<User.SearchHistoryItem> history = user.getSearchHistory();
+                    List<SearchHistory> history = user.getSearchHistory();
+                    // Check for duplicates if needed, but for now just add
                     history.add(0, item);
                     userRepository.save(user);
                 }
@@ -117,6 +123,7 @@ public class SearchController {
             return ResponseEntity.ok(Map.of("success", true, "content", results));
 
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity.internalServerError()
                     .body(Map.of("success", false, "message", "Internal Server Error"));
         }
